@@ -2,10 +2,11 @@ const mongoose = require("mongoose")
 
 const UserSchema = new mongoose.Schema(
     {
-        name: {
-            type: String
+        business_name: {
+            type: String,
+            required: true
         }, 
-        email: {
+        businessEmail: {
             type: String, 
             required: true, 
             unique: true
@@ -17,25 +18,20 @@ const UserSchema = new mongoose.Schema(
         phoneNumber: {
             type: Number
         },
-        gameSessionId: {
+        businessDescription: {
             type: String,
         },
-        repId: {
+        businessAddress: {
             type: String
         },
-        resetPasswordToken: {
+        
+        keywords: {
             type: String, 
             required: false
         },
-        role: {
-            type: String
-        },
-        token: {
-            type: Number, 
-            default: 0  
-        },
-        active: {
-            type: Boolean
+        interests: {
+            type: String, 
+            required: false
         },
         resetPasswordExpires: {
             type: Date
