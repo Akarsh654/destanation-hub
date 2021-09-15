@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <form METHOD = "POST" action ="/login">
+        <input type = "text" name ="email" placeholder = "Email Address"/>
+        <input type= "password" name = "password" placeholder = "Password" />
+        <input type = "submit"/>
+        <a href="/forgot_password">forgot password?</a>
+      </form>
+  </body>
+</html>
