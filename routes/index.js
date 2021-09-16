@@ -3,6 +3,10 @@ var router = express.Router();
 const passport = require('passport')
 var authController = require('../Controllers/authController')
 
+
+router.get('/', function(req, res, next){
+    res.send(" Welcome to Destanation ")
+})
 router.get("/jwt_protect", passport.authenticate('jwt', { session: false }),authController.test_jwt);
 
 

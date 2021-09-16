@@ -2,11 +2,11 @@ const mongoose = require("mongoose")
 
 const UserSchema = new mongoose.Schema(
     {
-        business_name: {
+        businessName: {
             type: String,
             required: true
         }, 
-        businessEmail: {
+        email: {
             type: String, 
             required: true, 
             unique: true
@@ -26,12 +26,16 @@ const UserSchema = new mongoose.Schema(
         },
         
         keywords: {
-            type: String, 
+            type: [String], 
             required: false
         },
         interests: {
-            type: String, 
+            type: [String], 
             required: false
+        },
+        role: {
+            type: Number, 
+            required: true
         },
         resetPasswordExpires: {
             type: Date

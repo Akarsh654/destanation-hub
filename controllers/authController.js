@@ -69,10 +69,10 @@ exports.post_login = function(req, res, next){
           bcrypt.compare(password, user.password, (err, isMatch) => {
               if(err) throw err; 
               if (isMatch) {
-                if(user.role != 'admin' ){
+                if(user.role != 1){
                   return res.status(404)
                     .json({
-                        message: 'Sorry only admins can login'
+                        message: 'Sorry only businesses can login'
                     })
                 }
                 const tokenObject = issueJWT(user);
@@ -159,12 +159,18 @@ exports.get_register= function(req, res, next){
 exports.post_register = function(req, res, next){
   email = req.body.email  
   password = req.body.password
-  full_name = req.body.fullname
-
+  businessName = req.body.business_name 
+  phoneNumber = req.body.mobile_number
+  interests = req.body.business_interests
+  keywords = req.body.business_keywords
+  businessDescription = req.body.business_description
+  businessAddress = req.body.business_address
+  role = req.body.role
+  console.log(req.body)
   User.findOne({ email: email })
   .then(user => {
       if(!user) {
-          const newUser = new User({ email, password}); 
+          const newUser = new User({ role, email, password, businessName, phoneNumber, businessDescription, businessAddress, keywords, interests }); 
           bcrypt.genSalt(10, (err, salt ) => {
               bcrypt.hash(newUser.password, salt, (err, hash) => {
                   if (err) throw err; 
@@ -179,19 +185,27 @@ exports.post_register = function(req, res, next){
                             success: true, 
                             user: user, 
                             token: jwt.token, 
-                            expiresIn: jwt.expiresIn
+                            expiresIn: jwt.expiresIn,
+                            message: "Successful Registration"
                           })
                         })
                       .catch(err => {
+                          console.log('err: ', err)
                           return res.status(404)
-                                    .send('There was an error with your registration')
-                      }); 
+                                    .json({
+                                      success: false, 
+                                      message: err.Error
+                                    })
+                        }); 
               }); 
           }); 
       } else {
               error = "There's a user registered with this email already"
               return res.status(404)
-                        .send("There's a user registered with this email already")
+                        .json({
+                          success: false, 
+                          message: "Error with registration"
+                        })
       }
   })
 }

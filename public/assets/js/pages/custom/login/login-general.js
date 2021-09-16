@@ -60,7 +60,7 @@ var KTResetPassword = function() {
 					var password = $('input[name="password"]').val()
 					var data = {email: email, password:password}
 					// if the details from the user is valid, then connect to the login API
-					fetch(`${HOST_URL}/login`, {
+					fetch(`/login`, {
 						method: 'POST', 
 						headers: {
 							'Content-Type': 'application/json'	
@@ -96,7 +96,7 @@ var KTResetPassword = function() {
 								}
 							}).then(function() {
 								if(icon == "success"){
-									window.location.href = "http://localhost:3000/"
+									window.location.href = "/"
 								}
 								KTUtil.scrollTop();
 							});
@@ -203,22 +203,83 @@ var KTResetPassword = function() {
 		);
 
         $('#kt_login_signup_submit').on('click', function (e) {
-            e.preventDefault();
+			e.preventDefault();
+			
 
+			// var business_keywords = $('#keywords-select-dropdown').select2('data')
             validation.validate().then(function(status) {
 		        if (status == 'Valid') {
-					// connect with the axio
-                    swal.fire({
-		                text: "All is cool! Now you submit this form",
-		                icon: "success",
-		                buttonsStyling: false,
-		                confirmButtonText: "Ok, got it!",
-                        customClass: {
-    						confirmButton: "btn font-weight-bold btn-light-primary"
-    					}
-		            }).then(function() {
-						KTUtil.scrollTop();
-					});
+					// alert('I got here')
+					var business_name = $('input[name="businessname"]').val()
+					var mobile_number = $('input[name=phonenumber]').val()
+					var web_url = $('input[name=websiteurl]').val()
+					var email = $('input[name=signup_email]').val()
+					var business_interests = []
+					$('.selected-interest-options li').each((i,interest)=>{
+						business_interests.push($(interest).text())
+					})
+					var business_keywords = []
+					$('.selected-keyword-options li').each((i,keyword)=>{
+						business_keywords.push($(keyword).text())
+						// alert($(keyword).text().replace())
+					})
+					console.log(business_keywords)
+					console.log('business_keywords', business_keywords)
+					var business_description = $('input[name=businessdescription]').val()
+					var business_address = $('input[name=address]').val()
+					var password = $('input[name=signup_password]').val()
+					var role = 1
+					var data = {business_name,role, mobile_number, web_url, email, business_interests, business_keywords, business_description, business_address, password}
+					console.log('full data: ',data)
+					// connect with backend to registere user and business 
+
+					// $.ajax({
+					// 	url: "/store_auth_details",
+					// 	method: 'POST',
+					// 	data: {auth_token: localStorage.getItem('auth_token'), user_role: localStorage.getItem('user_role')}
+					// }).done(function() {
+					// 	$( this ).addClass( "done" );
+					// });
+
+
+					fetch('/register', {
+						method: 'POST', 
+						headers: {
+							'Content-Type': 'application/json'
+						}, 
+						body: JSON.stringify(data)
+					})
+					.then(response => response.json())
+					.then(data => {
+						if(data.success == true){
+							swal.fire({
+								text: "All is cool! Now you submit this form",
+								icon: "success",
+								buttonsStyling: false,
+								confirmButtonText: "Ok, got it!",
+								customClass: {
+									confirmButton: "btn font-weight-bold btn-light-primary"
+								}
+							}).then(function() {
+								KTUtil.scrollTop();
+							});
+						}else{
+							swal.fire({
+								text: "Sorry, looks like there are some errors detected, please try again.",
+								icon: "error",
+								buttonsStyling: false,
+								confirmButtonText: "Ok, got it!",
+								customClass: {
+									confirmButton: "btn font-weight-bold btn-light-primary"
+								}
+							}).then(function() {
+								KTUtil.scrollTop();
+								if(data.success){
+									window.location.href = "/"
+								}
+							});
+						}
+					})
 				} else {
 					swal.fire({
 		                text: "Sorry, looks like there are some errors detected, please try again.",
