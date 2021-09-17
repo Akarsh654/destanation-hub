@@ -2,9 +2,18 @@ var express = require('express');
 var router = express.Router();
 const passport = require('passport')
 var authController = require('../Controllers/authController')
+var businessController = require('../Controllers/businessController')
+
 
 router.get("/jwt_protect", passport.authenticate('jwt', { session: false }),authController.test_jwt);
 
+router.get('/business', function(req, res, next){
+    res.render('business', {title: 'businesses'})
+})
+
+router.get('/businesses', businessController.get_businesses)
+
+router.post('/post-business', businessController.post_register )
 
 router.get('/login', authController.get_login)
 

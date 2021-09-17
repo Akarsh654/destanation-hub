@@ -1,43 +1,30 @@
 const mongoose = require("mongoose")
 
-const UserSchema = new mongoose.Schema(
+const BusinessSchema = new mongoose.Schema(
     {
-        business_name: {
+        businessName: {
             type: String,
-            required: true
-        }, 
-        businessEmail: {
-            type: String, 
             required: true, 
             unique: true
         }, 
-        password: {
-            type: String, 
-            required: true,
-        },
-        phoneNumber: {
-            type: Number
-        },
         businessDescription: {
             type: String,
         },
         businessAddress: {
             type: String
         },
-        
+        businessMobileNumber: {
+            type: Number
+        },
         keywords: {
-            type: String, 
+            type: [String], 
             required: false
         },
-        interests: {
+        businessWebsiteUrl: {
             type: String, 
-            required: false
-        },
-        resetPasswordExpires: {
-            type: Date
+            require: false
         }
-
     }, {strict: false, timestamps: true}
 );
 
-module.exports = mongoose.model("Business", UserSchema)
+module.exports = mongoose.model("Business", BusinessSchema)

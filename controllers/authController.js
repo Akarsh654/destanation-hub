@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const User = require('../models/user')
+const Business = require('../models/business')
 const passport = require('passport')
 const bcrypt = require("bcryptjs")
 var path = require('path')
@@ -413,4 +414,61 @@ exports.post_reset = function(req, res, next) {
 
             }
         })
+}
+
+
+
+
+exports.post_register = function(req, res, next){
+  email = req.body.email  
+  password = req.body.password
+  businessName = req.body.business_name 
+  phoneNumber = req.body.mobile_number
+  interests = req.body.business_interests
+  keywords = req.body.business_keywords
+  businessDescription = req.body.business_description
+  businessAddress = req.body.business_address
+  role = req.body.role
+  console.log(req.body)
+  User.findOne({ email: email })
+  .then(user => {
+      if(!user) {
+          const newUser = new User({ role, email, password, businessName, phoneNumber, businessDescription, businessAddress, keywords, interests }); 
+          bcrypt.genSalt(10, (err, salt ) => {
+              bcrypt.hash(newUser.password, salt, (err, hash) => {
+                  if (err) throw err; 
+                  newUser.password = hash 
+                  newUser
+                      .save()
+                      .then(user=> {
+                          //issue jwt token 
+                          console.log("successfully saved")
+                          const jwt = issueJWT(user)
+                          res.json({
+                            success: true, 
+                            user: user, 
+                            token: jwt.token, 
+                            expiresIn: jwt.expiresIn,
+                            message: "Successful Registration"
+                          })
+                        })
+                      .catch(err => {
+                          console.log('err: ', err)
+                          return res.status(404)
+                                    .json({
+                                      success: false, 
+                                      message: err.Error
+                                    })
+                        }); 
+              }); 
+          }); 
+      } else {
+              error = "There's a user registered with this email already"
+              return res.status(404)
+                        .json({
+                          success: false, 
+                          message: "Error with registration"
+                        })
+      }
+  })
 }
