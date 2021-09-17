@@ -20,6 +20,10 @@ const BusinessSchema = new mongoose.Schema(
             type: [String], 
             required: false
         },
+        businessType: {
+            type: String, 
+            required: true
+        },
         businessWebsiteUrl: {
             type: String, 
             require: false

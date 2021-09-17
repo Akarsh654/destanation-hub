@@ -57,17 +57,13 @@
         });
     };
 
-
-
     let resetModal = () => {
         let playerModal = $('#playerModal');
-        playerModal.find('.modal-title').text('Add New Player');
-        playerModal.find('#playerName').val('');
-        playerModal.find('#playerEmail').val('');
-        playerModal.find('#playerPassword').val('');
-        playerModal.find('#playerActive').prop('checked', false);
-        playerModal.find('#playerBtn').text('Add');
-        playerModal.find('#playerBtn').removeData('playerid');
+		let business_name = $("#businessName").val("");
+		let business_mobile_no = $("#business_mobile_no").val("");
+		let business_website_url = $("#business_website_url").val("");
+		let business_description = $("#business_description").val(""); 
+		let business_address = $("#business_address").val(""); 
         playerModal.modal('hide');
     }
 
@@ -136,13 +132,14 @@
             let business_mobile_no = $("#business_mobile_no").val();
             let business_website_url = $("#business_website_url").val();
             let business_description = $("#business_description").val(); 
-            let business_address = $("#business_address").val(); 
+			let business_address = $("#business_address").val(); 
+			let business_type = $('#business_type').find(":selected").text()
 			var business_keywords = []
 			$('.selected-keyword-options li').each((i,keyword)=>{
 				business_keywords.push($(keyword).text())
 				// alert($(keyword).text().replace())
 			})
-			body = {business_name, business_mobile_no, business_website_url, business_description, business_address, business_keywords}
+			let body = {business_name, business_type, business_mobile_no, business_website_url, business_description, business_address, business_keywords}
 			console.log('data:',body)
 
             // let active = $("#playerActive").is(":checked");
@@ -165,9 +162,9 @@
             //     return;
             // }
 
-            let body = {
-                fullName, email, active
-            }
+            // let body = {
+            //     fullName, email, active
+            // }
 
             // // if (method == 'POST') {
             //     body.password = password;

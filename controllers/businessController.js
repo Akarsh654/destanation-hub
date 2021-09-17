@@ -32,12 +32,13 @@ exports.post_register = function(req, res, next){
     keywords = req.body.business_keywords
     businessAddress = req.body.business_address
     businessWebsiteUrl = req.body.business_website_url
+    businessType = req.body.business_type
 
     console.log('business  moible: ', businessMobileNumber)
     Business.findOne({ businessName : businessName })
     .then(business => {
         if(!business) {
-            const newBusiness = new Business({ businessName, businessWebsiteUrl, businessMobileNumber ,businessDescription, businessAddress, keywords }); 
+            const newBusiness = new Business({ businessName,businessType, businessWebsiteUrl, businessMobileNumber ,businessDescription, businessAddress, keywords }); 
             newBusiness.save()
                         .then(business=>{
                             return res.json({
@@ -59,7 +60,7 @@ exports.post_register = function(req, res, next){
                 return res.status(404)
                           .json({
                             success: false, 
-                            message: "Error with registration"
+                            message: error
                           })
         }
     })
