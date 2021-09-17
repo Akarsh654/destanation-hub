@@ -2,7 +2,7 @@ const mongoose = require("mongoose")
 
 const UserSchema = new mongoose.Schema(
     {
-        businessName: {
+        fullName: {
             type: String,
             required: true
         }, 
@@ -15,20 +15,20 @@ const UserSchema = new mongoose.Schema(
             type: String, 
             required: true,
         },
-        phoneNumber: {
-            type: Number
-        },
-        businessDescription: {
-            type: String,
-        },
-        businessAddress: {
-            type: String
-        },
+        // phoneNumber: {
+        //     type: Number
+        // },
+        // businessDescription: {
+        //     type: String,
+        // },
+        // businessAddress: {
+        //     type: String
+        // },
         
-        keywords: {
-            type: [String], 
-            required: false
-        },
+        // keywords: {
+        //     type: [String], 
+        //     required: false
+        // },
         interests: {
             type: [String], 
             required: false

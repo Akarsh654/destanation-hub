@@ -210,26 +210,20 @@ var KTResetPassword = function() {
             validation.validate().then(function(status) {
 		        if (status == 'Valid') {
 					// alert('I got here')
-					var business_name = $('input[name="businessname"]').val()
-					var mobile_number = $('input[name=phonenumber]').val()
-					var web_url = $('input[name=websiteurl]').val()
+					var full_name = $('input[name="businessname"]').val()
+					// var mobile_number = $('input[name=phonenumber]').val()
+					// var web_url = $('input[name=websiteurl]').val()
 					var email = $('input[name=signup_email]').val()
 					var business_interests = []
 					$('.selected-interest-options li').each((i,interest)=>{
 						business_interests.push($(interest).text())
 					})
-					var business_keywords = []
-					$('.selected-keyword-options li').each((i,keyword)=>{
-						business_keywords.push($(keyword).text())
-						// alert($(keyword).text().replace())
-					})
-					console.log(business_keywords)
-					console.log('business_keywords', business_keywords)
-					var business_description = $('input[name=businessdescription]').val()
-					var business_address = $('input[name=address]').val()
+					
+					// var business_description = $('input[name=businessdescription]').val()
+					// var business_address = $('input[name=address]').val()
 					var password = $('input[name=signup_password]').val()
 					var role = 1
-					var data = {business_name,role, mobile_number, web_url, email, business_interests, business_keywords, business_description, business_address, password}
+					var data = {full_name,role, email, business_interests,password}
 					console.log('full data: ',data)
 					// connect with backend to registere user and business 
 

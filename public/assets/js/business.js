@@ -165,9 +165,9 @@
             //     return;
             // }
 
-            // let body = {
-            //     fullName, email, active
-            // }
+            let body = {
+                fullName, email, active
+            }
 
             // // if (method == 'POST') {
             //     body.password = password;
