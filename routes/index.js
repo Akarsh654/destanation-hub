@@ -28,5 +28,15 @@ router.get('/index', authController.index);
 
 router.get('/', authController.index);
 
+<<<<<<< Updated upstream
+=======
+router.get('/business-details', function(req, res, next) {
+    res.render('businessDet', { title: 'Business Details' });
+})
+
+router.get('/view-business', function(req, res, next) {
+    res.render('listings', { title: 'Business Details' });
+})
+>>>>>>> Stashed changes
 
 module.exports = router;

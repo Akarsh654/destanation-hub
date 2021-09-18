@@ -10,25 +10,25 @@ var usersRouter = require('./routes/users');
 
 var app = express();
 mongoose.connect(process.env.DATABASE_URL, {
-  useNewUrlParser: true,
-  useNewUrlParser: true,
-  // useCreateIndex: true,
-  useUnifiedTopology: true,
-  // useFindAndModify: false
-})
-  .then(
-    console.log('MongoDB Connected')
-  )
-  .catch(err => console.log(err));
+        useNewUrlParser: true,
+        useNewUrlParser: true,
+        // useCreateIndex: true,
+        useUnifiedTopology: true,
+        // useFindAndModify: false
+    })
+    .then(
+        console.log('MongoDB Connected')
+    )
+    .catch(err => console.log(err));
 
 var cors = require('cors');
 
 var corsOptions = {
-  origin: '*',
-  'preflightContinue': false,
-  'allowedHeaders': ['sessionId', 'Content-Type', 'Authorization'],
-  'methods': 'GET,HEAD,PUT,PATCH,POST,DELETE',
-  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+    origin: '*',
+    'preflightContinue': false,
+    'allowedHeaders': ['sessionId', 'Content-Type', 'Authorization'],
+    'methods': 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
 }
 
 app.use(cors(corsOptions));
@@ -62,4 +62,11 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+<<<<<<< Updated upstream
 module.exports = app;
+=======
+app.use(express.static(path.join(__dirname, "public/assets/js2/listings.js")))
+
+
+module.exports = app;
+>>>>>>> Stashed changes
