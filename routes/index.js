@@ -47,4 +47,8 @@ router.get('/claim', function(req, res, next){
 
 router.get('/unclaimed',businessController.get_unclaimed_businesses)
 
+router.get('/find', function(req, res, next){
+    res.render('find-other-businesses', {title: 'Find Other Businesses'})
+})
+router.get('/find-other-businesses/:user_id', businessController.get_other_businesses)
 module.exports = router;

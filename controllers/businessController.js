@@ -86,3 +86,19 @@ exports.post_register = function(req, res, next){
              'data': businesses
          })
   }
+
+  exports.get_other_businesses = async function(req, res, next){
+      user_id = req.params.user_id
+      console.log('user_id: ',user_id)
+      businesses = await Business.find({businessOwnerId:{$ne:user_id},verified: 1})
+
+      return res.status(200)
+         .json({
+             'data': businesses
+         })
+  }
+
+  exports.connect = async function(req, res, next){
+    //   user_id = req.params.user_id 
+    //   other_user_id = req.params.other_user
+  }

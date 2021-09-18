@@ -33,6 +33,11 @@ const BusinessSchema = new mongoose.Schema(
             type: String, 
             require: false
         }, 
+        connectionRequests: {
+            required: false, 
+            type: [String], 
+            default: []
+        },
         verified: {
             type: Number,
             default: 1
