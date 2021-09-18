@@ -7,6 +7,11 @@ const BusinessSchema = new mongoose.Schema(
             required: true, 
             unique: true
         }, 
+        businessOwnerId: {
+            type: String, 
+            required: true, 
+            unique: false
+        },
         businessDescription: {
             type: String,
         },
@@ -27,6 +32,10 @@ const BusinessSchema = new mongoose.Schema(
         businessWebsiteUrl: {
             type: String, 
             require: false
+        }, 
+        verified: {
+            type: Number,
+            default: 1
         }
     }, {strict: false, timestamps: true}
 );

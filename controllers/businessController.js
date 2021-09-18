@@ -33,12 +33,12 @@ exports.post_register = function(req, res, next){
     businessAddress = req.body.business_address
     businessWebsiteUrl = req.body.business_website_url
     businessType = req.body.business_type
-
-    console.log('business  moible: ', businessMobileNumber)
+    businessOwnerId = req.body.user_id
+    console.log('business  ownerId: ', businessOwnerId)
     Business.findOne({ businessName : businessName })
     .then(business => {
         if(!business) {
-            const newBusiness = new Business({ businessName,businessType, businessWebsiteUrl, businessMobileNumber ,businessDescription, businessAddress, keywords }); 
+            const newBusiness = new Business({ businessOwnerId, businessName,businessType, businessWebsiteUrl, businessMobileNumber ,businessDescription, businessAddress, keywords }); 
             newBusiness.save()
                         .then(business=>{
                             return res.json({
@@ -67,7 +67,19 @@ exports.post_register = function(req, res, next){
   }
 
   exports.get_businesses = async function(req, res, next){
-      businesses = await Business.find({}).lean(); 
+      console.log("I got here")
+      user_id = req.params.user_id
+      businesses = await Business.find({businessOwnerId: user_id}).lean(); 
+      console.log('business: ', businesses); 
+      return res.status(200)
+         .json({
+             'data': businesses
+         })
+  }
+
+  exports.get_unclaimed_businesses = async function(req, res, next){
+      console.log("I got here")
+      businesses = await Business.find({verified: 0}).lean(); 
       console.log('business: ', businesses); 
       return res.status(200)
          .json({

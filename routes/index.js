@@ -11,7 +11,11 @@ router.get('/business', function(req, res, next){
     res.render('business', {title: 'businesses'})
 })
 
-router.get('/businesses', businessController.get_businesses)
+router.get('/logout', function(req, res, next){
+    res.redirect('login')
+})
+
+router.get('/businesses/:user_id', businessController.get_businesses)
 
 router.post('/post-business', businessController.post_register )
 
@@ -37,5 +41,10 @@ router.get('/index', authController.index);
 
 router.get('/', authController.index);
 
+router.get('/claim', function(req, res, next){
+    res.render('claim', {title: 'Claim'})
+})
+
+router.get('/unclaimed',businessController.get_unclaimed_businesses)
 
 module.exports = router;

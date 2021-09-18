@@ -9,7 +9,7 @@
         table.DataTable({
             responsive: true,
             ajax: {
-                url:`/businesses/${user_id}`,
+                url:`/unclaimed`,
 				type: 'GET',
 				headers: {
                     'Content-Type': 'application/json', 
@@ -22,9 +22,9 @@
             },
             columns: [
                 { data: 'businessName' },
-                { data: 'businessMobileNumber' },
+                // { data: 'businessMobileNumber' },
 				{ data: 'businessWebsiteUrl' },
-				{ data: 'businessAddress'},
+				// { data: 'businessAddress'},
                 { data: null, responsivePriority: -1 },
             ],
             columnDefs: [
@@ -34,23 +34,10 @@
                     orderable: false,
                     render: function (data, type, full, meta) {
                         return `\
-                            <div class="dropdown dropdown-inline">\
-                                <a data-businessId="${data._id}" href="javascript:;" class="btn btn-sm btn-clean btn-icon" data-toggle="dropdown">\
-                                    <i class="la la-cog"></i>\
-                                </a>\
-                                  <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right">\
-                                    <ul class="nav nav-hoverable flex-column">\
-                                        <li class="nav-item"><a class="nav-link" href="#"><i class="nav-icon la la-edit"></i><span class="nav-text">Edit Details</span></a></li>\
-                                        <li class="nav-item"><a class="nav-link" href="#"><i class="nav-icon la la-leaf"></i><span class="nav-text">Toggle Active</span></a></li>\
-                                    </ul>\
-                                  </div>\
-                            </div>\
-                            <a data-businessId="${data._id}" href="javascript:;" class="btn btn-sm btn-clean btn-icon btn-edit" title="Edit details">\
-                                <i class="la la-edit"></i>\
+                            <a id = "${data.businessWebsiteUrl}"  data-businessId="${data._id}" data-toggle= "modal" data-target="#playerModal" href="javascript:;" class="claim_btn btn btn-primary">\
+                                    <i class="la flaticon-download"></i> Claim\
                             </a>\
-                            <a data-businessId="${data._id}" href="javascript:;" class="btn btn-sm btn-clean btn-icon btn-delete" title="Delete">\
-                                <i class="la la-trash"></i>\
-                            </a>\
+                           
                         `;
                     },
                 },
@@ -118,7 +105,12 @@
                     playerModal.modal('show');
                 })
         })
-
+        let selected_websiteurl = ""
+        $('#kt_datatable').on('click', '.claim_btn',(event)=>{
+            selected_websiteurl = event.target.id; 
+            selected_websiteurl = selected_websiteurl.substr(4)
+            // alert(selected_websiteurl)
+          })
 
         cancelBtn.on('click', () => {
             resetModal();
@@ -128,8 +120,11 @@
             resetModal();
         })
 
+
         addBtn.on('click', () => {
-            let business_name = $("#businessName").val();
+            /**
+             * 
+             *  let business_name = $("#businessName").val();
             let business_mobile_no = $("#business_mobile_no").val();
             let business_website_url = $("#business_website_url").val();
             let business_description = $("#business_description").val(); 
@@ -210,6 +205,42 @@
                     resetModal();
                 })
 
+             */
+
+
+            console.log(' I clicked this')
+            let email = $("#businessName").val();
+            // let email = $("#businessName").val()
+            resetModal();
+
+            alert(selected_websiteurl)
+            // let weburl = email.
+            if(email.includes(selected_websiteurl)){
+                swal.fire({
+                    text: "An email has been sent to Claim your business",
+                    icon: "success",
+                    buttonsStyling: false,
+                    confirmButtonText: "Ok, got it!",
+                    customClass: {
+                        confirmButton: "btn font-weight-bold btn-light-primary"
+                    }
+                }).then(function() {
+                    KTUtil.scrollTop();
+                });
+            }else{
+                swal.fire({
+                    text: "Provide an business email matching the website Domain URL",
+                    icon: "error",
+                    buttonsStyling: false,
+                    confirmButtonText: "Ok, got it!",
+                    customClass: {
+                        confirmButton: "btn font-weight-bold btn-light-primary"
+                    }
+                }).then(function() {
+                    KTUtil.scrollTop();
+                });
+            }
+           
         });
 
     })

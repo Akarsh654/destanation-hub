@@ -96,7 +96,7 @@ var KTResetPassword = function() {
 								}
 							}).then(function() {
 								if(icon == "success"){
-									window.location.href = "/"
+									window.location.href = "/business"
 								}
 								KTUtil.scrollTop();
 							});
@@ -256,6 +256,12 @@ var KTResetPassword = function() {
 								}
 							}).then(function() {
 								KTUtil.scrollTop();
+								if(data.success){
+									localStorage.setItem('user_id', data.user._id)
+									alert(data.user._id)
+									window.location.href = "/business"
+
+								}
 							});
 						}else{
 							swal.fire({
@@ -268,9 +274,7 @@ var KTResetPassword = function() {
 								}
 							}).then(function() {
 								KTUtil.scrollTop();
-								if(data.success){
-									window.location.href = "/"
-								}
+								
 							});
 						}
 					})
