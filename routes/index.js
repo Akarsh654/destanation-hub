@@ -51,4 +51,11 @@ router.get('/find', function(req, res, next){
     res.render('find-other-businesses', {title: 'Find Other Businesses'})
 })
 router.get('/find-other-businesses/:user_id', businessController.get_other_businesses)
+
+router.get('/profile', function(req, res, next){
+    res.render('profile', {title: 'Profile'})
+})
+
 module.exports = router;
+
+

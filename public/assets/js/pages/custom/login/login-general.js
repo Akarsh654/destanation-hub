@@ -76,7 +76,8 @@ var KTResetPassword = function() {
 							}else{
 								icon = `success`
 								localStorage.setItem('auth_token',data.token)
-								localStorage.setItem('user_id', JSON.stringify(data.user))
+								localStorage.setItem('user_id', data.user._id)
+								localStorage.setItem('user', JSON.stringify(data.user))
 								
 								$.ajax({
 									url: "/store_auth_details",
@@ -257,8 +258,9 @@ var KTResetPassword = function() {
 							}).then(function() {
 								KTUtil.scrollTop();
 								if(data.success){
+									localStorage.setItem('user', JSON.stringify(data.user))
 									localStorage.setItem('user_id', data.user._id)
-									alert(data.user._id)
+									// alert(data.user._id)
 									window.location.href = "/business"
 
 								}
