@@ -62,11 +62,7 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-<<<<<<< Updated upstream
-module.exports = app;
-=======
 app.use(express.static(path.join(__dirname, "public/assets/js2/listings.js")))
 
 
 module.exports = app;
->>>>>>> Stashed changes

@@ -1,7 +1,9 @@
 var express = require('express');
 var router = express.Router();
 const passport = require('passport')
-var authController = require('../Controllers/authController')
+var authController = require('../Controllers/authController');
+const business = require('../models/business');
+var Business = require('../models/business')
 
 router.get("/jwt_protect", passport.authenticate('jwt', { session: false }),authController.test_jwt);
 
@@ -28,15 +30,15 @@ router.get('/index', authController.index);
 
 router.get('/', authController.index);
 
-<<<<<<< Updated upstream
-=======
 router.get('/business-details', function(req, res, next) {
     res.render('businessDet', { title: 'Business Details' });
 })
 
 router.get('/view-business', function(req, res, next) {
-    res.render('listings', { title: 'Business Details' });
+    let business = Business.find({_id: "6144498ba305c715600ec6ce"}).lean(); 
+    // return business; 
+    console.log('business: ', business)
+    res.render('listings', { business, title: 'Business Details' });
 })
->>>>>>> Stashed changes
 
 module.exports = router;
