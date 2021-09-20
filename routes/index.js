@@ -39,7 +39,10 @@ router.post('/reset', authController.post_reset)
 
 router.get('/index', authController.index);
 
-router.get('/', authController.index);
+// router.get('/', authController.index);
+router.get('/', function(req, res, next){
+    res.render('home')
+})
 
 router.get('/claim', function(req, res, next){
     res.render('claim', {title: 'Claim'})
