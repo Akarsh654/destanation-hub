@@ -28,7 +28,7 @@ exports.get_login = function(req, res, next) {
 }
 
 exports.index = function(req, res, next) {
-    res.render('index', { title: 'Index' })
+    res.render('index', { title: 'Homepage ' })
 }
 
 exports.test_jwt =
@@ -57,75 +57,76 @@ function issueJWT(user) {
 }
 
 
-exports.post_login = function(req, res, next){
-  email = req.body.email 
-  password = req.body.password
-  User.findOne({ email: email })
-  .then(user => {
-      if(!user) {
-          console.log("We cannot find that particular user")
-          res.status(404).json({
-            success: false,
-            message: "Invalid Credentials"
-          });
-      } else {
-          console.log("There's a user, we just comparing the passwords now")
-          console.log('password', user)
-          bcrypt.compare(password, user.password, (err, isMatch) => {
-              if(err) throw err; 
-              if (isMatch) {
-                if(user.role != 1){
-                  return res.status(404)
-                    .json({
-                        message: 'Sorry only businesses can login'
-                    })
-                }
-                const tokenObject = issueJWT(user);
-                res.status(200).json({
-                  success: true,
-                  user:user,
-                  token: tokenObject.token,
-                  expiresIn: tokenObject.expires,
-                  message: "Successful Login"
+exports.post_login = function(req, res, next) {
+    email = req.body.email
+    password = req.body.password
+    User.findOne({ email: email })
+        .then(user => {
+            if (!user) {
+                console.log("We cannot find that particular user")
+                res.status(404).json({
+                    success: false,
+                    message: "Invalid Credentials"
                 });
             } else {
                 console.log("There's a user, we just comparing the passwords now")
                 console.log('password', user)
                 bcrypt.compare(password, user.password, (err, isMatch) => {
-                    if (err) throw err;
-                    if (isMatch) {
-                        if (user.role != 'admin') {
-                            return res.status(404)
-                                .json({
-                                    message: 'Sorry only admins can login'
-                                })
+                        if (err) throw err;
+                        if (isMatch) {
+                            if (user.role != 1) {
+                                return res.status(404)
+                                    .json({
+                                        message: 'Sorry only businesses can login'
+                                    })
+                            }
+                            const tokenObject = issueJWT(user);
+                            res.status(200).json({
+                                success: true,
+                                user: user,
+                                token: tokenObject.token,
+                                expiresIn: tokenObject.expires,
+                                message: "Successful Login"
+                            });
+                        } else {
+                            console.log("There's a user, we just comparing the passwords now")
+                            console.log('password', user)
+                            bcrypt.compare(password, user.password, (err, isMatch) => {
+                                if (err) throw err;
+                                if (isMatch) {
+                                    if (user.role != 'admin') {
+                                        return res.status(404)
+                                            .json({
+                                                message: 'Sorry only admins can login'
+                                            })
+                                    }
+                                    const tokenObject = issueJWT(user);
+                                    res.status(200).json({
+                                        success: true,
+                                        user: user,
+                                        token: tokenObject.token,
+                                        expiresIn: tokenObject.expires,
+                                        message: "Successful Login"
+                                    });
+                                } else {
+                                    console.log("Actually no match")
+                                    res.status(404)
+                                        .json({
+                                            message: 'Invalid Credentials'
+                                        })
+                                }
+                            })
                         }
-                        const tokenObject = issueJWT(user);
-                        res.status(200).json({
-                            success: true,
-                            user: user,
-                            token: tokenObject.token,
-                            expiresIn: tokenObject.expires,
-                            message: "Successful Login"
-                        });
-                    } else {
-                        console.log("Actually no match")
+                    })
+                    .catch(err => {
                         res.status(404)
                             .json({
                                 message: 'Invalid Credentials'
                             })
-                    }
-                })
+                    })
             }
         })
-        .catch(err => {
-            res.status(404)
-                .json({
-                    message: 'Invalid Credentials'
-                })
-        })
 }
-  })}
 
 
 
@@ -182,59 +183,59 @@ exports.get_register = function(req, res, next) {
     res.render('register', { title: 'Register' })
 }
 
-exports.post_register = function(req, res, next){
-  email = req.body.email  
-  password = req.body.password
-  fullName = req.body.full_name 
-//   phoneNumber = req.body.mobile_number
-  interests = req.body.business_interests
-//   keywords = req.body.business_keywords
-//   businessDescription = req.body.business_description
-//   businessAddress = req.body.business_address
-  role = req.body.role
-  console.log(req.body)
-  User.findOne({ email: email })
-  .then(user => {
-      if(!user) {
-        //   const newUser = new User({ role, email, password, businessName, phoneNumber, businessDescription, businessAddress, keywords, interests }); 
-          const newUser = new User({role, email, password,fullName, interests, role})
-          bcrypt.genSalt(10, (err, salt ) => {
-              bcrypt.hash(newUser.password, salt, (err, hash) => {
-                  if (err) throw err; 
-                  newUser.password = hash 
-                  newUser
-                      .save()
-                      .then(user=> {
-                          //issue jwt token 
-                          console.log("successfully saved")
-                          const jwt = issueJWT(user)
-                          res.json({
-                            success: true, 
-                            user: user, 
-                            token: jwt.token, 
-                            expiresIn: jwt.expiresIn,
-                            message: "Successful Registration"
-                          })
-                        })
-                      .catch(err => {
-                          console.log('err: ', err)
-                          return res.status(404)
+exports.post_register = function(req, res, next) {
+    email = req.body.email
+    password = req.body.password
+    fullName = req.body.full_name
+        //   phoneNumber = req.body.mobile_number
+    interests = req.body.business_interests
+        //   keywords = req.body.business_keywords
+        //   businessDescription = req.body.business_description
+        //   businessAddress = req.body.business_address
+    role = req.body.role
+    console.log(req.body)
+    User.findOne({ email: email })
+        .then(user => {
+            if (!user) {
+                //   const newUser = new User({ role, email, password, businessName, phoneNumber, businessDescription, businessAddress, keywords, interests }); 
+                const newUser = new User({ role, email, password, fullName, interests, role })
+                bcrypt.genSalt(10, (err, salt) => {
+                    bcrypt.hash(newUser.password, salt, (err, hash) => {
+                        if (err) throw err;
+                        newUser.password = hash
+                        newUser
+                            .save()
+                            .then(user => {
+                                //issue jwt token 
+                                console.log("successfully saved")
+                                const jwt = issueJWT(user)
+                                res.json({
+                                    success: true,
+                                    user: user,
+                                    token: jwt.token,
+                                    expiresIn: jwt.expiresIn,
+                                    message: "Successful Registration"
+                                })
+                            })
+                            .catch(err => {
+                                console.log('err: ', err)
+                                return res.status(404)
                                     .json({
-                                      success: false, 
-                                      message: err.Error
+                                        success: false,
+                                        message: err.Error
                                     })
-                        }); 
-              }); 
-          }); 
-      } else {
-              error = "There's a user registered with this email already"
-              return res.status(404)
-                        .json({
-                          success: false, 
-                          message: "Error with registration"
-                        })
-      }
-  })
+                            });
+                    });
+                });
+            } else {
+                error = "There's a user registered with this email already"
+                return res.status(404)
+                    .json({
+                        success: false,
+                        message: "Error with registration"
+                    })
+            }
+        })
 }
 
 exports.get_forgot_password = function(req, res, next) {
