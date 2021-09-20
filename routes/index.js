@@ -59,6 +59,11 @@ router.get('/profile', function(req, res, next){
     res.render('profile', {title: 'Profile'})
 })
 
+
+router.get('/listings', function(req, res, next){
+    res.render('listings')
+})
+
 module.exports = router;
 
 
