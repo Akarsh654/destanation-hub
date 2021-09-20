@@ -112,3 +112,15 @@ exports.post_register = function(req, res, next){
         res.render('listings')
             .json({'businesses': businesses})//{'businesses': JSON.stringify(businesses)})
   }
+
+  exports.businessDetails = async function(req, res, next){
+    //   businessId = req.params.id
+    //   console.log('id: ', businessId)
+    //   business = await Business.find({_id: businessId}).lean()
+    //   console.log(business)
+
+      return res.render('business-details')// {'business':business})
+
+    //   return res.render('business-details', {'business':business})
+                // .json({'business':business})
+  }

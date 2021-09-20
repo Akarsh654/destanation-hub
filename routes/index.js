@@ -60,6 +60,11 @@ router.get('/profile', function(req, res, next){
 })
 
 
+// router.get('/details/:id', businessController.businessDetails);
+
+router.get('/details', businessController.businessDetails);
+
+
 router.get('/listings', businessController.listings); 
 
 module.exports = router;
