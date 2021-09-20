@@ -143,133 +143,43 @@
                                 <!-- Results -->
                                 <div class="results_container">
                                     <div class="section_title">
-                                        <h1><span>Results for: </span>Montreal Businesses</h1>
+                                        <h1><span>Results for: </span>SNS Catering</h1>
                                     </div>
                                     <div class="results grid">
 
-                                        <!-- Result Item -->
-                                        <div class="grid-item result coffee">
-                                            <div class="listing">
-                                                <div class="listing_image">
-                                                    <div class="listing_icon">
-                                                        <a href="listing.html"><img src="index_resources/images/loc.png" alt="Resturant"></a>
+                                        <% businesses.forEach(function(business) {%>
+                                            <div class="grid-item result coffee">
+                                                <div class="listing">
+                                                    <div class="listing_image">
+                                                        <div class="listing_icon">
+                                                            <a href="listing.html"><img src="index_resources/images/loc.png" alt=""></a>
+                                                        </div>
+                                                        <img src="index_resources/images/listing_2.jpg" alt="">
                                                     </div>
-                                                    <img src="index_resources/images/listing_1.jpg" alt="">
-                                                </div>
-                                                <div class="listing_title_container">
-                                                    <div class="listing_title"><a href="listing.html">The Royal Place</a></div>
-                                                    <div class="listing_info d-flex flex-row align-items-center justify-content-between">
-                                                        <div class="listing_rating">4,5</div>
-                                                        <div class="listing_price">$$$</div>
-                                                        <div class="listing_divider">|</div>
-                                                        <div class="listing_type">Restaurant</div>
-                                                        <div class="listing_divider">|</div>
-                                                        <div class="listing_status">Open</div>
+                                                    <div class="listing_title_container">
+                                                        <div class="listing_title"><a href=`details/<%= business._id %>`><%= business.businessName %></a></div>
+                                                        <div class="listing_info d-flex flex-row align-items-center justify-content-between">
+                                                            <div class="listing_rating">4,5</div>
+                                                            <div class="listing_price">$$$</div>
+                                                            <div class="listing_divider">|</div>
+                                                            <div class="listing_type"><%= business.businessType %></div>
+                                                            <div class="listing_divider">|</div>
+                                                            <div class="listing_status">Closed</div>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="listing_testimonial">
-                                                    <div class="d-flex flex-row align-items-center justify-content-start">
-                                                        <div class="testimonial_image"><img src="index_resources/images/user_1.jpg" alt=""></div>
-                                                        <div class="testimonial_text">
-                                                            <p>Great place to visit, the food is awesome, I really love it.</p>
+                                                    <div class="listing_testimonial">
+                                                        <div class="d-flex flex-row align-items-center justify-content-start">
+                                                            <!-- <div class="testimonial_image"><img src="index_resources/images/user_2.jpg" alt=""></div> -->
+                                                            <div class="testimonial_text">
+                                                                <p><%= business.businessDescription %></p>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-
-                                        <!-- Result Item -->
-                                        <div class="grid-item result food">
-                                            <div class="listing">
-                                                <div class="listing_image">
-                                                    <div class="listing_icon">
-                                                        <a href="listing.html"><img src="index_resources/images/consulting.png" alt=""></a>
-                                                    </div>
-                                                    <img src="index_resources/images/listing_2.jpg" alt="">
-                                                </div>
-                                                <div class="listing_title_container">
-                                                    <div class="listing_title"><a href="listing.html">Consultancy Services</a></div>
-                                                    <div class="listing_info d-flex flex-row align-items-center justify-content-between">
-                                                        <div class="listing_rating">4,5</div>
-                                                        <div class="listing_price">$$$</div>
-                                                        <div class="listing_divider">|</div>
-                                                        <div class="listing_type">Consultancy Services</div>
-                                                        <div class="listing_divider">|</div>
-                                                        <div class="listing_status">Closed</div>
-                                                    </div>
-                                                </div>
-                                                <div class="listing_testimonial">
-                                                    <div class="d-flex flex-row align-items-center justify-content-start">
-                                                        <div class="testimonial_image"><img src="index_resources/images/Consultancy" alt=""></div>
-                                                        <div class="testimonial_text">
-                                                            <p>Amzing people, loved working along with them.</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <!-- Result Item -->
-                                        <div class="grid-item result drinks">
-                                            <div class="listing">
-                                                <div class="listing_image">
-                                                    <div class="listing_icon">
-                                                        <a href="listing.html"><img src="index_resources/images/loc.png" alt=""></a>
-                                                    </div>
-                                                    <img src="index_resources/images/listing_1.jpg" alt="">
-                                                </div>
-                                                <div class="listing_title_container">
-                                                    <div class="listing_title"><a href="listing.html">Law Academy</a></div>
-                                                    <div class="listing_info d-flex flex-row align-items-center justify-content-between">
-                                                        <div class="listing_rating">4,5</div>
-                                                        <div class="listing_price">$$$</div>
-                                                        <div class="listing_divider">|</div>
-                                                        <div class="listing_type">Law Firm</div>
-                                                        <div class="listing_divider">|</div>
-                                                        <div class="listing_status">Closed</div>
-                                                    </div>
-                                                </div>
-                                                <div class="listing_testimonial">
-                                                    <div class="d-flex flex-row align-items-center justify-content-start">
-                                                        <div class="testimonial_image"><img src="index_resources/images/user_1.jpg" alt=""></div>
-                                                        <div class="testimonial_text">
-                                                            <p>Very co-operative staff, they helped me a lot..</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <!-- Result Item -->
-                                        <div class="grid-item result coffee">
-                                            <div class="listing">
-                                                <div class="listing_image">
-                                                    <div class="listing_icon">
-                                                        <a href="listing.html"><img src="index_resources/images/loc.png" alt=""></a>
-                                                    </div>
-                                                    <img src="index_resources/images/listing_2.jpg" alt="">
-                                                </div>
-                                                <div class="listing_title_container">
-                                                    <div class="listing_title"><a href="listing.html">Denny's Patio</a></div>
-                                                    <div class="listing_info d-flex flex-row align-items-center justify-content-between">
-                                                        <div class="listing_rating">4,5</div>
-                                                        <div class="listing_price">$$$</div>
-                                                        <div class="listing_divider">|</div>
-                                                        <div class="listing_type">Restaurant</div>
-                                                        <div class="listing_divider">|</div>
-                                                        <div class="listing_status">Closed</div>
-                                                    </div>
-                                                </div>
-                                                <div class="listing_testimonial">
-                                                    <div class="d-flex flex-row align-items-center justify-content-start">
-                                                        <div class="testimonial_image"><img src="index_resources/images/user_2.jpg" alt=""></div>
-                                                        <div class="testimonial_text">
-                                                            <p>Great place to visit, the food is awesome, I really love it.</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+    
+                                         <% }); %>
+                                      
 
                                     </div>
                                 </div>

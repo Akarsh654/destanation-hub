@@ -102,3 +102,13 @@ exports.post_register = function(req, res, next){
     //   user_id = req.params.user_id 
     //   other_user_id = req.params.other_user
   }
+
+
+  exports.listings = async function(req, res, next){
+
+        businesses = await Business.find().limit(9)
+        console.log(businesses)
+
+        res.render('listings')
+            .json({'businesses': businesses})//{'businesses': JSON.stringify(businesses)})
+  }

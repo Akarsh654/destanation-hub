@@ -60,9 +60,7 @@ router.get('/profile', function(req, res, next){
 })
 
 
-router.get('/listings', function(req, res, next){
-    res.render('listings')
-})
+router.get('/listings', businessController.listings); 
 
 module.exports = router;
 
